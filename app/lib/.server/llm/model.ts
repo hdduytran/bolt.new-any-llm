@@ -15,6 +15,10 @@ import type { LanguageModelV1 } from 'ai';
 export const DEFAULT_NUM_CTX = process.env.DEFAULT_NUM_CTX ? parseInt(process.env.DEFAULT_NUM_CTX, 10) : 32768;
 
 type OptionalApiKey = string | undefined;
+import { createAmazonBedrock } from '@ai-sdk/amazon-bedrock';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export function getAnthropicModel(apiKey: OptionalApiKey, model: string) {
   const anthropic = createAnthropic({
@@ -76,6 +80,25 @@ export function getGroqModel(apiKey: OptionalApiKey, model: string) {
 export function getHuggingFaceModel(apiKey: OptionalApiKey, model: string) {
   const openai = createOpenAI({
     baseURL: 'https://api-inference.huggingface.co/v1/',
+    apiKey,
+  });
+
+  return openai(model);
+}
+
+export function getAmazonBedrockModel(apiKey: OptionalApiKey, model: string) {
+  const amazonBedrock = createAmazonBedrock({
+    region: process.env.AWS_REGION,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  });
+
+  return amazonBedrock(model);
+}
+
+export function getCerebrasModel(apiKey: OptionalApiKey, model: string) {
+  const openai = createOpenAI({
+    baseURL: 'https://api.cerebras.ai/v1',
     apiKey,
   });
 
@@ -149,6 +172,10 @@ export function getModel(provider: string, model: string, env: Env, apiKeys?: Re
       return getOpenRouterModel(apiKey, model);
     case 'Google':
       return getGoogleModel(apiKey, model);
+    case 'Cerebras':
+      return getCerebrasModel(apiKey, model);
+    case 'Bedrock':
+      return getAmazonBedrockModel(apiKey, model);
     case 'OpenAILike':
       return getOpenAILikeModel(baseURL, apiKey, model);
     case 'Together':

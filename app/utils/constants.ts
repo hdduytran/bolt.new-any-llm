@@ -250,8 +250,29 @@ const PROVIDER_LIST: ProviderInfo[] = [
       { name: 'mistral-small-latest', label: 'Mistral Small', provider: 'Mistral', maxTokenAllowed: 8000 },
       { name: 'codestral-latest', label: 'Codestral', provider: 'Mistral', maxTokenAllowed: 8000 },
       { name: 'mistral-large-latest', label: 'Mistral Large Latest', provider: 'Mistral', maxTokenAllowed: 8000 },
+      { name: 'pixtral-12b-2409', label: 'Pixtral 12B', provider: 'Mistral', maxTokenAllowed: 8000 },
     ],
     getApiKeyLink: 'https://console.mistral.ai/api-keys/',
+  },
+  {
+    name: 'Cerebras',
+    staticModels: [
+      { name: 'llama3.1-8b', label: 'Llama 3.1 8B', provider: 'Cerebras', maxTokenAllowed: 8000 },
+      { name: 'llama3.1-70b', label: 'Llama 3.1 70B', provider: 'Cerebras', maxTokenAllowed: 8000 },
+    ],
+    getApiKeyLink: 'https://inference-docs.cerebras.ai/quickstart',
+  },
+  {
+    name: 'Bedrock',
+    staticModels: [
+      {
+        name: 'anthropic.claude-3-5-sonnet-20241022-v2:0',
+        label: 'Claude 3.5 Sonnet v2',
+        provider: 'Bedrock',
+        maxTokenAllowed: 8000,
+      },
+    ],
+    getApiKeyLink: 'https://platform.deepseek.com/api_keys',
   },
   {
     name: 'LMStudio',

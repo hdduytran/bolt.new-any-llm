@@ -43,6 +43,10 @@ export function getAPIKey(cloudflareEnv: Env, provider: string, userApiKeys?: Re
       return env.COHERE_API_KEY;
     case 'AzureOpenAI':
       return env.AZURE_OPENAI_API_KEY;
+    case 'Cerebras':
+      return env.CEREBRAS_API_KEY || cloudflareEnv.CEREBRAS_API_KEY;
+    case 'Bedrock':
+      return env.AMAZON_BEDROCK_API_KEY || cloudflareEnv.AMAZON_BEDROCK_API_KEY;
     default:
       return '';
   }
