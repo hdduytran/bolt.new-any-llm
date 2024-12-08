@@ -45,6 +45,10 @@ function chrome129IssuePlugin() {
       server.middlewares.use((req, res, next) => {
         const raw = req.headers['user-agent']?.match(/Chrom(e|ium)\/([0-9]+)\./);
 
+        res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+        res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+        res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+
         if (raw) {
           const version = parseInt(raw[2], 10);
 
